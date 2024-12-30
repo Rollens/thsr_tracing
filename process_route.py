@@ -1,5 +1,5 @@
 import math
-from haversine import haversine_distance, find_closest_point
+from haversine import haversine_distance, euclidean_distance
 
 def read_route_file(filepath):
     # 讀取路徑檔案，並將其轉換為經緯度的列表
@@ -22,7 +22,7 @@ def read_station_file(filepath):
 
 def find_closest_route_point(route_list, target):
     # 找到距離目標座標最近的路徑點
-    closest_point = min(route_list, key=lambda point: haversine_distance(point, target))
+    closest_point = min(route_list, key=lambda point: euclidean_distance(point, target))
     return closest_point
 
 def find_closest_station(route_list, stations, target):
@@ -30,7 +30,7 @@ def find_closest_station(route_list, stations, target):
     start = route_list.index(target)
     distance_north = 0
     distance_south = 0
-    for i in range(start, len(route_list)):
+    for i in range(start, len(route_list)-1):
         if route_list[i] in stations.values():
             closest_station_south = route_list[i]
             break
@@ -58,6 +58,7 @@ if __name__ == "__main__":
     # 接收使用者輸入的座標
     user_input = input("請輸入座標 (格式: 經度,緯度): ")
     target_coordinates = find_closest_route_point(route_list, tuple(map(float, user_input.split(','))))
+    print(f"Closest point to {user_input} is {target_coordinates}")
 
     # 找到最近的車站
     closest_station = find_closest_station(route_list, stations, target_coordinates)
