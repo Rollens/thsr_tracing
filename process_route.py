@@ -24,9 +24,9 @@ def save_station_points(filepath, station_points):
             file.write(f"{station_name},{point[0]},{point[1]}\n")
 
 if __name__ == "__main__":
-    route_filepath = '/Users/rollens/code/pilotdemo/route.txt'
-    station_filepath = '/Users/rollens/code/pilotdemo/station.txt'
-    output_filepath = '/Users/rollens/code/pilotdemo/station_points.txt'
+    route_filepath = 'route.txt'
+    station_filepath = 'station.txt'
+    output_filepath = 'station_points.txt'
     
     route_list = read_route_file(route_filepath)
     stations = read_station_file(station_filepath)
